@@ -11,7 +11,7 @@ class process:
     def display(self):
         print(self.name , "\t", end="")
         print(self.rafaga , "\t", end="")
-        print(self.time , "\t", end="")
+        print(self.time , "\t")
 
 
 if __name__ == "__main__":
@@ -21,19 +21,31 @@ if __name__ == "__main__":
 
     print("\t\t Welcome \n\n")
     while(not halt):
-        name=input("type process name: ")
-        rafaga=int(input("type process rafaga: "))
-        time=int(input("type process arrival time: "))
+        try:
+            name=input("type process abreviated-name: ")
+            rafaga=int(input("type process rafaga: "))
+            time=int(input("type process arrival time: "))
+        except:
+            print("input not valid")
+            halt=True
+            continue
 
         p1=process(name,rafaga,time)
         processList.append(p1)
         print("\n\n")
         print("add more processes? 1:true, anything else: false\n")
-        choice=int(input())
+        choice=1
+        try:
+            choice=int(input())
+        except:
+            print("input not valid")
+            halt=True
+            continue
         if choice != 1:
             halt=True
 
     print("\n\n")
+    print("NAME\tRAFAGA\tTIME\t \n\n")
     for p in processList:
         p.display()
 
