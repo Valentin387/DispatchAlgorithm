@@ -4,9 +4,13 @@ class process:
         self.rafaga=rafaga
         self.time=time
 
-    def set_running_data(self,startTime,finishTime):
+    def set_startTime(self,startTime):
         self.startTime=startTime
+
+    def set_finishTime(self,finishTime):
         self.finishTime=finishTime
+
+    def set_running_data(self):
         self.waitingTime=self.startTime-self.time
         self.systemTime=self.finishTime-self.time
 
@@ -89,23 +93,27 @@ if __name__ == "__main__":
     for p in processList:
         p.display()
 
-    tam=len(processList)
-    i=0
-    temp=0
-    rafagaAcumulada=0
-    while (i < tam):
-        while temp < i:
-            rafagaAcumulada+=processList[temp].rafaga
-            temp+=1
-        processList[i].set_running_data(rafagaAcumulada,rafagaAcumulada+p.rafaga)
-        rafagaAcumulada=0
-        temp=0
-        i+=1
+    clock=0
+    gotten=False
+    for p in processList:
+        while (not gotten):
+            if (p.time<=clock):
+                p.set_startTime(clock)
+                p.set_finishTime(clock+p.rafaga)
+                clock=p.finishTime
+                gotten=True
+            else:
+                clock+=1
+        gotten=False
+
+
+
 
     print("\n\nNAME\tRAFAGA\tTIME\tstart\tfinish \n\n")
     for p in processList:
         p.display_start_finish()
 
+    """
     tam=len(processList)
     i=0
     WT_total=0
@@ -120,6 +128,7 @@ if __name__ == "__main__":
     print("\n\n")
     print("Waiting Time average: ",str(WT_average))
     print("System Time average: ",str(ST_average))
+    """
 
 
     print("\n\n\nEND OF LINE")
