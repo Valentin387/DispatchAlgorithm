@@ -26,6 +26,13 @@ class process:
         print(self.startTime , "\t", end="")
         print(self.finishTime , "\t")
 
+    def display_running_data(self):
+        print(self.name , "\t", end="")
+        print(self.rafaga , "\t", end="")
+        print(self.time , "\t", end="")
+        print(self.waitingTime , "\t", end="")
+        print(self.systemTime , "\t")
+
 def bubbleSort(arr):
     n = len(arr)
     # optimize code, so if the array is already sorted, it doesn't need
@@ -106,14 +113,15 @@ if __name__ == "__main__":
                 clock+=1
         gotten=False
 
-
-
-
     print("\n\nNAME\tRAFAGA\tTIME\tstart\tfinish \n\n")
     for p in processList:
         p.display_start_finish()
 
-    """
+    print("\n\nNAME\tRAFAGA\tTIME\tWAIT\tSYSTEM \n\n")
+    for p in processList:
+        p.set_running_data()
+        p.display_running_data()
+
     tam=len(processList)
     i=0
     WT_total=0
@@ -122,13 +130,13 @@ if __name__ == "__main__":
         WT_total+=processList[i].waitingTime
         ST_total+=processList[i].systemTime
         i+=1
-    WT_average=WT_total/tam
-    ST_average=ST_total/tam
+    WT_average=round(WT_total/tam, 2)
+    ST_average=round(ST_total/tam, 2)
 
     print("\n\n")
     print("Waiting Time average: ",str(WT_average))
     print("System Time average: ",str(ST_average))
-    """
+
 
 
     print("\n\n\nEND OF LINE")
