@@ -1,3 +1,5 @@
+import plotly.figure_factory as ff
+
 class process:
     def __init__(self,name,rafaga,time):
         self.name=name
@@ -136,7 +138,27 @@ if __name__ == "__main__":
     print("\n\n")
     print("Waiting Time average: ",str(WT_average))
     print("System Time average: ",str(ST_average))
+    print("\n\n")
 
+    df=[]
+    for p in processList:
+        d1=dict(Task=p.name, Start=p.startTime, Finish=p.finishTime)
+        df.append(d1)
+
+    fig = ff.create_gantt(df)
+    value=0
+    while(True):
+        try:
+            value=int(input("Do you want to generate web gantt diagram? 1=yes, anything else: no \n"))
+        except:
+            print("not valid input \n")
+            continue
+        if value == 1:
+            fig.layout.update({'title': 'DISPATCHING FIFO ALGORITHM'})
+            fig.update_layout(xaxis_type='linear')
+            fig.show()
+        else:
+            break
 
 
     print("\n\n\nEND OF LINE")
